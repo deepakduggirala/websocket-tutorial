@@ -7,6 +7,7 @@ const users = require('./routes/users')
 
 const app = express()
 
+app.use(express.static('client'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: false

@@ -9,7 +9,7 @@ window.onload = function () {
 
   // The rest of the code in this tutorial will go here...
 
-  var socket = new WebSocket('ws://echo.websocket.org');
+  var socket = new WebSocket('ws://' + window.location.host + '/foo');
   socket.onopen = function (event) {
     socketStatus.innerHTML = `Connected to ${event.currentTarget.url}`;
   };
@@ -30,7 +30,10 @@ window.onload = function () {
     var message = messageField.value;
 
     // Send the message through the WebSocket.
-    socket.send(message);
+    socket.send(JSON.stringify({
+      client: '1',
+      message
+    }));
 
     // Add the message to the messages list.
     messagesList.innerHTML += '<li class="sent"><span>Sent:</span>' + message +

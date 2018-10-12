@@ -8,6 +8,7 @@ const app = require('../app')
 const debug = require('debug')('websockets:server')
 const http = require('http')
 const wss = require('../app-ws');
+const url = require('url');
 
 /**
  * Get port from environment and store in Express.
@@ -30,10 +31,10 @@ server.listen(port)
 server.on('error', onError)
 server.on('listening', onListening)
 server.on('upgrade', (req, socket, head) => {
-  const pathname = url.parse(request.url).pathname;
+  const pathname = url.parse(req.url).pathname;
   if (pathname === '/foo') {
     wss.handleUpgrade(req, socket, head, ws => {
-      wss.emit('connection', ws, request)
+      wss.emit('connection', ws, req)
     });
   }
 });
